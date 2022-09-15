@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Anagrams</string>
+    <string name="main_button">Convert</string>
+    <string name="hintEditText">Type a word</string>
+    <string name="hintResult">Result</string>
+    <string name="EmptyString">Please write a word</string>
+
 </resources>
