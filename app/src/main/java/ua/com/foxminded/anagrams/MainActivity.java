@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.convert);
         EditText editText = findViewById(R.id.Type_a_word);
+        EditText editTextIgnore = findViewById(R.id.Symbol_to_ignore);
         TextView textView = findViewById(R.id.result);
         button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -29,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Anagram anagram = new Anagram();
                     String text = editText.getText().toString();
-                    textView.setText(anagram.makeAnagram(text));
+                 //   textView.setText(anagram.makeAnagram(text));
+
+                    String ignoreSymbols = editTextIgnore.getText().toString();
+                    textView.setText(anagram.makeAnagram(text,ignoreSymbols));
 
                 }
 

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Anagrams</string>
     <string name="main_button">Convert</string>
-    <string name="hintEditText">Type a word</string>
+    <string name="hintEditText">Enter text for anagram</string>
+    <string name="hintEditText2">Enter symbols to ignore</string>
     <string name="hintResult">Result</string>
     <string name="EmptyString">Please write a word</string>
 

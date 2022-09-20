@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringJoiner;
 
 
@@ -16,6 +18,14 @@ public class Anagram {
 
     private static final String SPACE_DELIMITER = " ";
 
+    private static Set<Character> stringToSet (String ignoreSymbols){
+        Set<Character> ignore = new HashSet<>();
+        for (char symbol : ignoreSymbols.toCharArray()){
+            ignore.add(symbol);
+        }
+        return ignore;
+    }
+
     /**
      * This method splits the string into words and reverses each word separately
      *
@@ -23,14 +33,14 @@ public class Anagram {
      * @return result of reverses
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public String makeAnagram(String sentence) {
+    public String makeAnagram(String sentence, String ignoreSymbols) {
         validateSentence(sentence);
 
         String[] words = sentence.split(SPACE_DELIMITER, sentence.length());
         StringJoiner result = new StringJoiner(SPACE_DELIMITER);
 
         for (String part : words) {
-            result.add(reversedWord(part));
+            result.add(reversedWord(part, stringToSet(ignoreSymbols)));
         }
         return result.toString();
     }
@@ -47,7 +57,7 @@ public class Anagram {
      * @param word something string
      * @return new string
      */
-    private String reversedWord(String word) {
+    private String reversedWord(String word, Set<Character> ignoreSymbols) {
         char[] result = word.toCharArray();
         int i = 0;
         int j = result.length - 1;
