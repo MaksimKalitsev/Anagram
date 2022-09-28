@@ -4,8 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.HashSet;
-import java.util.Set;
+
 import java.util.StringJoiner;
 
 
@@ -18,13 +17,13 @@ public class Anagram {
 
     private static final String SPACE_DELIMITER = " ";
 
-    private static Set<Character> stringToSet (String ignoreSymbols){
+  /*  private static Set<Character> stringToSet (String ignoreSymbols){
         Set<Character> ignore = new HashSet<>();
         for (char symbol : ignoreSymbols.toCharArray()){
             ignore.add(symbol);
         }
         return ignore;
-    }
+    }*/
 
     /**
      * This method splits the string into words and reverses each word separately
@@ -40,9 +39,17 @@ public class Anagram {
         StringJoiner result = new StringJoiner(SPACE_DELIMITER);
 
         for (String part : words) {
-            result.add(reversedWord(part, stringToSet(ignoreSymbols)));
+            result.add(reversedWord(part,ignoreSymbols));
         }
         return result.toString();
+    }
+
+    public static Boolean isIgnored(char letter, String ignoredSymbols) {
+        if (ignoredSymbols.isEmpty()) {
+            return !Character.isAlphabetic(letter);
+        } else {
+            return ignoredSymbols.contains(String.valueOf(letter));
+        }
     }
 
     private void validateSentence(String sentence) {
@@ -57,13 +64,26 @@ public class Anagram {
      * @param word something string
      * @return new string
      */
-    private String reversedWord(String word, Set<Character> ignoreSymbols) {
+
+    private String reversedWord(String word, String ignoredCharacters) {
         char[] result = word.toCharArray();
         int i = 0;
         int j = result.length - 1;
         char temp;
 
         while (i < j) {
+            if (isIgnored(result[i], ignoredCharacters)) {
+                i++;
+            } else if (isIgnored(result[j], ignoredCharacters)) {
+                j--;
+            } else {
+                temp = result[i];
+                result[i] = result[j];
+                result[j] = temp;
+                i++;
+                j--;
+
+            }
             if (Character.isLetter(result[i]) && Character.isLetter(result[j])) {
                 temp = result[i];
                 result[i] = result[j];
