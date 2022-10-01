@@ -5,51 +5,37 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringJoiner;
 
 
-/**
- * This class makes an anagram
- *
- * @author Maksim.Kalitsev
- */
 public class Anagram {
 
     private static final String SPACE_DELIMITER = " ";
 
-  /*  private static Set<Character> stringToSet (String ignoreSymbols){
+    private Set<Character> ignoredSymbols;
+
+    private static Set<Character> stringToSet(String ignoreSymbols) {
         Set<Character> ignore = new HashSet<>();
-        for (char symbol : ignoreSymbols.toCharArray()){
+        for (char symbol : ignoreSymbols.toCharArray()) {
             ignore.add(symbol);
         }
         return ignore;
-    }*/
+    }
 
-    /**
-     * This method splits the string into words and reverses each word separately
-     *
-     * @param sentence something string
-     * @return result of reverses
-     */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public String makeAnagram(String sentence, String ignoreSymbols) {
+    public String makeAnagram(String sentence, String ignoreString) {
         validateSentence(sentence);
 
         String[] words = sentence.split(SPACE_DELIMITER, sentence.length());
         StringJoiner result = new StringJoiner(SPACE_DELIMITER);
+        ignoredSymbols = stringToSet(ignoreString);
 
         for (String part : words) {
-            result.add(reversedWord(part,ignoreSymbols));
+            result.add(reversedWord(part));
         }
         return result.toString();
-    }
-
-    public static Boolean isIgnored(char letter, String ignoredSymbols) {
-        if (ignoredSymbols.isEmpty()) {
-            return !Character.isAlphabetic(letter);
-        } else {
-            return ignoredSymbols.contains(String.valueOf(letter));
-        }
     }
 
     private void validateSentence(String sentence) {
@@ -58,41 +44,30 @@ public class Anagram {
         }
     }
 
-    /**
-     * This method turns a string into characters and swaps without symbols
-     *
-     * @param word something string
-     * @return new string
-     */
+    private boolean shouldBeProcessed(char symbol) {
+        if (ignoredSymbols.isEmpty()) {
+            return Character.isLetter(symbol);
+        } else {
+            return !ignoredSymbols.contains(symbol);
+        }
+    }
 
-    private String reversedWord(String word, String ignoredCharacters) {
+    private String reversedWord(String word) {
         char[] result = word.toCharArray();
         int i = 0;
         int j = result.length - 1;
         char temp;
 
         while (i < j) {
-            if (isIgnored(result[i], ignoredCharacters)) {
-                i++;
-            } else if (isIgnored(result[j], ignoredCharacters)) {
-                j--;
-            } else {
+            if (shouldBeProcessed(result[i]) && shouldBeProcessed(result[j])) {
                 temp = result[i];
                 result[i] = result[j];
                 result[j] = temp;
                 i++;
                 j--;
-
-            }
-            if (Character.isLetter(result[i]) && Character.isLetter(result[j])) {
-                temp = result[i];
-                result[i] = result[j];
-                result[j] = temp;
+            } else if (!shouldBeProcessed(result[i]) && shouldBeProcessed(result[j])) {
                 i++;
-                j--;
-            } else if (!Character.isLetter(result[i]) && Character.isLetter(result[j])) {
-                i++;
-            } else if (Character.isLetter(result[i]) && !Character.isLetter(result[j])) {
+            } else if (shouldBeProcessed(result[i]) && !shouldBeProcessed(result[j])) {
                 j--;
             } else {
                 i++;
