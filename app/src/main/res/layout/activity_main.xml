@@ -1,60 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/convert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/result"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/main_button"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="376dp" />
 
     <EditText
-        android:id="@+id/Type_a_word"
+        android:id="@+id/sentence"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ignoredSymbols"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:autofillHints=""
         android:background="@color/background"
         android:backgroundTint="@color/purple_500"
         android:ems="10"
         android:hint="@string/hintEditText"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="319dp" />
+        android:minHeight="48dp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="153dp" />
 
     <EditText
-        android:id="@+id/Symbol_to_ignore"
+        android:id="@+id/ignoredSymbols"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Type_a_word"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sentence"
+        app:layout_constraintBottom_toBottomOf="@+id/result"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:autofillHints=""
         android:background="@color/background"
         android:backgroundTint="@color/purple_500"
         android:ems="10"
         android:hint="@string/hintEditText2"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="319dp" />
+        android:minHeight="48dp"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="232dp" />
+
 
     <TextView
         android:id="@+id/result"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Symbol_to_ignore"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="50dp"
-        android:hint="@string/hintResult" />
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ignoredSymbols"
+        app:layout_constraintBottom_toBottomOf="@+id/convert"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="@string/hintResult"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="312dp" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/convert"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/main_button"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
