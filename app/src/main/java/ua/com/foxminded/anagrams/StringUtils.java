@@ -18,9 +18,9 @@ final public class StringUtils {
         Set<Character> ignoredSymbols = stringToSet(ignoreString);
 
         for (String part : words) {
-            result.append(reversedWord(part, ignoredSymbols));
+            result.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
         }
-        return result.toString();
+        return result.toString().trim();
     }
 
     private static Set<Character> stringToSet(String ignoreSymbols) {
@@ -46,12 +46,13 @@ final public class StringUtils {
         char temp;
 
         while (i < j) {
-            temp = result[i];
-            result[i] = result[j];
-            result[j] = temp;
-            i++;
-            j--;
-            if (!shouldBeProcessed(result[i], ignored) && shouldBeProcessed(result[j], ignored)) {
+            if (shouldBeProcessed(result[i], ignored) && shouldBeProcessed(result[j], ignored)) {
+                temp = result[i];
+                result[i] = result[j];
+                result[j] = temp;
+                i++;
+                j--;
+            } else if (!shouldBeProcessed(result[i], ignored) && shouldBeProcessed(result[j], ignored)) {
                 i++;
             } else if (shouldBeProcessed(result[i], ignored) && !shouldBeProcessed(result[j], ignored)) {
                 j--;

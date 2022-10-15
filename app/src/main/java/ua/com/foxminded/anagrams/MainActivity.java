@@ -9,32 +9,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button convert_btn;
-    EditText sentence_et;
-    EditText ignoredSymbols_et;
-    TextView result_tv;
-
+   private Button mConvertBtn;
+   private EditText mSentenceEt;
+   private EditText mIgnoredSymbolsEt;
+   private TextView mResultTv;
+private View.OnClickListener mConvertBtnClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        convert_btn = findViewById(R.id.convert);
-        sentence_et = findViewById(R.id.sentence);
-        ignoredSymbols_et = findViewById(R.id.ignoredSymbols);
-        result_tv = findViewById(R.id.result);
-        convert_btn.setOnClickListener(new View.OnClickListener() {
-
-
+        mConvertBtn = findViewById(R.id.convert_btn);
+        mSentenceEt = findViewById(R.id.sentence_et);
+        mIgnoredSymbolsEt = findViewById(R.id.ignoredsymbols_et);
+        mResultTv = findViewById(R.id.result_tv);
+        mConvertBtnClickListener = new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                if (sentence_et.getText().toString().trim().equals("")) {
+                if (mSentenceEt.getText().toString().trim().equals("")) {
                     Toast.makeText(MainActivity.this, R.string.EmptyString, Toast.LENGTH_SHORT).show();
                 } else {
-                    String text = sentence_et.getText().toString();
-                    String ignoreSymbols = ignoredSymbols_et.getText().toString();
-                    result_tv.setText(StringUtils.makeAnagram(text, ignoreSymbols));
+                    String text = mSentenceEt.getText().toString();
+                    String ignoreSymbols = mIgnoredSymbolsEt.getText().toString();
+                    mResultTv.setText(StringUtils.makeAnagram(text, ignoreSymbols));
                 }
             }
-        });
+        };
+        mConvertBtn.setOnClickListener(mConvertBtnClickListener);
     }
 }
