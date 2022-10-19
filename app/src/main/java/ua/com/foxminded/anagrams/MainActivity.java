@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mIgnoredSymbolsEt;
     private TextView mResultTv;
     private View.OnClickListener mConvertBtnClickListener;
-    private String TextViewKey = "Text_View_Key";
+    private final String TextViewKey = "Text_View_Key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
