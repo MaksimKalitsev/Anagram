@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mIgnoredSymbolsEt;
     private TextView mResultTv;
     private View.OnClickListener mConvertBtnClickListener;
-    private String someKey = "SOME_KEY";
-    private String test;
+    private String TextViewKey = "Text_View_Key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(someKey, test);
+        outState.putString(TextViewKey, mResultTv.getText().toString());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        test = savedInstanceState.getString(someKey);
-        mResultTv.setText(test);
+        mResultTv.setText(savedInstanceState.getString(TextViewKey));
     }
 }
