@@ -46,17 +46,14 @@ final public class StringUtils {
         char temp;
 
         while (i < j) {
-            if (shouldBeProcessed(result[i], ignored) && shouldBeProcessed(result[j], ignored)) {
+             if (!shouldBeProcessed(result[i], ignored)) {
+                i++;
+            } else if (!shouldBeProcessed(result[j], ignored)) {
+                j--;
+            } else {
                 temp = result[i];
                 result[i] = result[j];
                 result[j] = temp;
-                i++;
-                j--;
-            } else if (!shouldBeProcessed(result[i], ignored) && shouldBeProcessed(result[j], ignored)) {
-                i++;
-            } else if (shouldBeProcessed(result[i], ignored) && !shouldBeProcessed(result[j], ignored)) {
-                j--;
-            } else {
                 i++;
                 j--;
             }

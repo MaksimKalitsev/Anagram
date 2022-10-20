@@ -14,8 +14,20 @@ public class MainActivity extends AppCompatActivity {
     private EditText mSentenceEt;
     private EditText mIgnoredSymbolsEt;
     private TextView mResultTv;
-    private View.OnClickListener mConvertBtnClickListener;
-    private final String TextViewKey = "Text_View_Key";
+
+    private View.OnClickListener mConvertBtnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (mSentenceEt.getText().toString().trim().equals("")) {
+                Toast.makeText(MainActivity.this, R.string.EmptyString, Toast.LENGTH_SHORT).show();
+            } else {
+               final String text = mSentenceEt.getText().toString();
+               final String ignoreSymbols = mIgnoredSymbolsEt.getText().toString();
+                mResultTv.setText(StringUtils.makeAnagram(text, ignoreSymbols));
+            }
+        }
+    };
+    private final String ANAGRAM_KEY = "ANAGRAM_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,30 +37,18 @@ public class MainActivity extends AppCompatActivity {
         mSentenceEt = findViewById(R.id.sentence_et);
         mIgnoredSymbolsEt = findViewById(R.id.ignoredsymbols_et);
         mResultTv = findViewById(R.id.result_tv);
-        mConvertBtnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mSentenceEt.getText().toString().trim().equals("")) {
-                    Toast.makeText(MainActivity.this, R.string.EmptyString, Toast.LENGTH_SHORT).show();
-                } else {
-                    String text = mSentenceEt.getText().toString();
-                    String ignoreSymbols = mIgnoredSymbolsEt.getText().toString();
-                    mResultTv.setText(StringUtils.makeAnagram(text, ignoreSymbols));
-                }
-            }
-        };
         mConvertBtn.setOnClickListener(mConvertBtnClickListener);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(TextViewKey, mResultTv.getText().toString());
+        outState.putString(ANAGRAM_KEY, mResultTv.getText().toString());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mResultTv.setText(savedInstanceState.getString(TextViewKey));
+        mResultTv.setText(savedInstanceState.getString(ANAGRAM_KEY));
     }
 }
