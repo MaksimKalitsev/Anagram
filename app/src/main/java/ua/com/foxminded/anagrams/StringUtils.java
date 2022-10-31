@@ -13,14 +13,17 @@ final public class StringUtils {
             return "";
         }
         final String SPACE_DELIMITER = " ";
+        String[] lines = sentence.split("\n");
         String[] words = sentence.split(SPACE_DELIMITER, sentence.length());
-        StringBuilder result = new StringBuilder(SPACE_DELIMITER);
+        StringBuilder result = new StringBuilder("\n");
+        StringBuilder resultFinish = new StringBuilder(SPACE_DELIMITER);
         Set<Character> ignoredSymbols = stringToSet(ignoreString);
-
-        for (String part : words) {
-            result.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
-        }
-        return result.toString().trim();
+        for (String line : lines)
+         //   result // something code
+            for (String part : words) {
+                resultFinish.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
+            }
+        return resultFinish.toString().trim();
     }
 
     private static Set<Character> stringToSet(String ignoreSymbols) {
@@ -46,7 +49,7 @@ final public class StringUtils {
         char temp;
 
         while (i < j) {
-             if (!shouldBeProcessed(result[i], ignored)) {
+            if (!shouldBeProcessed(result[i], ignored)) {
                 i++;
             } else if (!shouldBeProcessed(result[j], ignored)) {
                 j--;
