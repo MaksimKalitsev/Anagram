@@ -14,16 +14,16 @@ final public class StringUtils {
         }
         final String SPACE_DELIMITER = " ";
         String[] lines = sentence.split("\n");
-        String[] words = sentence.split(SPACE_DELIMITER, sentence.length());
-        StringBuilder result = new StringBuilder("\n");
-        StringBuilder resultFinish = new StringBuilder(SPACE_DELIMITER);
+        StringBuilder result = new StringBuilder();
         Set<Character> ignoredSymbols = stringToSet(ignoreString);
-        for (String line : lines)
-         //   result // something code
+        for (String line : lines) {
+            String[] words = line.split(SPACE_DELIMITER, sentence.length());
             for (String part : words) {
-                resultFinish.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
+                result.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
             }
-        return resultFinish.toString().trim();
+            result.append("\n");
+        }
+        return result.toString().trim();
     }
 
     private static Set<Character> stringToSet(String ignoreSymbols) {
