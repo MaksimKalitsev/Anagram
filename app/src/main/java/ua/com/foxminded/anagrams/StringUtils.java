@@ -21,7 +21,7 @@ final public class StringUtils {
             for (String part : words) {
                 result.append(reversedWord(part, ignoredSymbols)).append(SPACE_DELIMITER);
             }
-            result.append("\n");
+            result.deleteCharAt(result.length()-1).append("\n");
         }
         return result.toString().trim();
     }
